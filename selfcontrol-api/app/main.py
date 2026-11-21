@@ -7,7 +7,7 @@ from sqlalchemy.exc import IntegrityError
 
 from app import models  # noqa: F401  (supaya semua tabel terdaftar di Base.metadata)
 from app.config import settings
-from app.routers import chores, finance, history, les, limits, reflection, streaks, study, usage, violations, wake
+from app.routers import chores, extras, finance, history, les, limits, reflection, streaks, study, usage, violations, wake
 from app.routers import status as status_router
 from app.security import verify_api_key
 from app.timeutils import now_utc, to_local
@@ -43,6 +43,7 @@ app.include_router(les.router, prefix=f"{API}/les", tags=["Les"], dependencies=p
 app.include_router(violations.router, prefix=f"{API}/violations", tags=["Pelanggaran"], dependencies=protected)
 app.include_router(finance.router, prefix=f"{API}/finance", tags=["Keuangan"], dependencies=protected)
 app.include_router(limits.router, prefix=f"{API}/limits", tags=["Batas aplikasi"], dependencies=protected)
+app.include_router(extras.router, prefix=API, tags=["PR, ujian & pengaturan"], dependencies=protected)
 app.include_router(usage.router, prefix=f"{API}/usage", tags=["Pemakaian aplikasi"], dependencies=protected)
 
 

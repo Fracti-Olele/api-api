@@ -236,3 +236,27 @@ class UsageDaily(Base):
     usage_date: Mapped[date] = mapped_column(Date, index=True)  # tanggal lokal
     duration_seconds: Mapped[int]
     updated_at: Mapped[datetime] = mapped_column(UTCDateTime, default=now_utc)
+
+
+# ====================== PR, ujian, pengaturan pribadi ======================
+class Task(Base):
+    """PR dan ujian: judul, tenggat, selesai atau belum. kind: pr | uj."""
+
+    __tablename__ = "tasks"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    kind: Mapped[str] = mapped_column(String(10), index=True)
+    title: Mapped[str] = mapped_column(String(120))
+    due_date: Mapped[date] = mapped_column(Date, index=True)
+    due_time: Mapped[time | None] = mapped_column(Time, nullable=True)
+    done: Mapped[bool] = mapped_column(default=False)
+    created_at: Mapped[datetime] = mapped_column(UTCDateTime, default=now_utc)
+
+
+class Setting(Base):
+    """Pengaturan tampilan pribadi (nama, avatar, alokasi saldo). Satu baris per kunci."""
+
+    __tablename__ = "settings"
+
+    key: Mapped[str] = mapped_column(String(40), primary_key=True)
+    value: Mapped[str] = mapped_column(Text)

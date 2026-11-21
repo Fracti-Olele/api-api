@@ -86,3 +86,12 @@ uvicorn app.main:app --reload --port 8000              # buka http://127.0.0.1:8
 
 Sama seperti Tahap 1: uji di Wi-Fi yang sama, pemakaian nyata lewat HTTPS (Tailscale / Cloudflare Tunnel), jangan host di HP yang sama.
 App Android memanggil `GET /status` berkala dan menegakkan sisanya; foto dikirim `multipart/form-data` field `photo`.
+
+## Tambahan: PR, ujian, pengaturan pribadi (untuk aplikasi Kith)
+
+| Modul | Endpoint |
+|---|---|
+| **PR & ujian** | `GET/POST /tasks` (`kind` = `pr` atau `uj`, `title`, `due_date`, `due_time` opsional) · `PATCH /tasks/{id}` (`done`) · `DELETE /tasks/{id}` |
+| **Pengaturan** | `GET/PUT /settings` (kunci yang diterima: `name`, `avatar`, `alloc`) |
+
+Tabel `tasks` dan `settings` dibuat otomatis. Untuk aplikasi Android (Capacitor) isi `CORS_ORIGINS` dengan `https://localhost` (asal APK) dan alamat Cloudflare Pages-mu, dipisah koma.
